@@ -29,8 +29,6 @@ void Drawer::init(int width, int height)
 }
 
 
-
-
 void Drawer::draw_example() 
 {
 	//clear screebn
@@ -47,7 +45,6 @@ void Drawer::draw_example()
 
 	SDL_RenderPresent(renderer);
 }
-
 
 void Drawer::loop_example()
 {
@@ -73,6 +70,52 @@ void Drawer::loop_example()
 	}
 }
 
+
+void Drawer::draw_background() {
+	//clear screen
+	SDL_SetRenderDrawColor(renderer, 0x0F, 0x1F, 0x1F, 0xFF);
+	SDL_RenderClear(renderer);
+}
+
+void Drawer::draw_nodes(std::vector<int> xs, std::vector<int> ys) {
+	
+	auto x_it = xs.begin();
+	auto y_it = ys.begin();
+	for (int i = 0; i < xs.size(); i++) {
+		SDL_SetRenderDrawColor(renderer, 0xFF, i * 10, 0x00, 0xFF);
+		SDL_Rect location = { *x_it-5, *y_it-5,10,10 };
+		SDL_RenderDrawRect(renderer, &location);
+
+		++x_it;
+		++y_it;
+
+	}
+
+}
+
+void Drawer::draw_rods(std::vector<int> x1s, std::vector<int> y1s, std::vector<int> x2s, std::vector<int> y2s) {
+
+	auto x1_it = x1s.begin();
+	auto y1_it = y1s.begin();
+	auto x2_it = x2s.begin();
+	auto y2_it = y2s.begin();
+	for (int i = 0; i < x1s.size(); i++) {
+		SDL_SetRenderDrawColor(renderer, 0xFF, i * 10, 0x00, 0xFF);
+		
+		SDL_RenderDrawLine(renderer, *x1_it, *y1_it, *x2_it, *y2_it);
+
+		++x1_it;
+		++y1_it;
+		++x2_it;
+		++y2_it;
+
+	}
+
+}
+
+void Drawer::draw_present() {
+	SDL_RenderPresent(renderer);
+}
 
 void Drawer::close() 
 {
